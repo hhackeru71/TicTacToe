@@ -23,6 +23,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 while(signPlayer1 !="X" && signPlayer1 !="O")
                 {
                     Console.WriteLine("wrong sign!");
+                    Console.WriteLine("enter a sign!");
                     signPlayer1 = Console.ReadLine().ToUpper();
                         
                 }
@@ -42,11 +43,11 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
                 do
                 {
-                    Console.Clear();//מחיקת המסך
+                  //  Console.Clear();//מחיקת המסך
                     Console.WriteLine($"player {namePlayer1} : {signPlayer1} and player 2 {namePlayer2} {signPlayer2}");
                     DrawBoard();
                 }
-                while ();
+                while (true);
 
 
 
