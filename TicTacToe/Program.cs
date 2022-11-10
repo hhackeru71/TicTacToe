@@ -5,16 +5,21 @@ namespace MyApp // Note: actual namespace depends on the project name.
     internal class Program
     {
         static char[] board = { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+        static int flag;
+        static int player = 1;
+        static string namePlayer1 = "";
+        static string namePlayer2 = "";
+
         static void Main(string[] args)
         {
 
             try
             {
-                int player = 1;
-
+               
+              
                 string signPlayer2 = "";
                 Console.WriteLine("enter a name");
-                string namePlayer1 = Console.ReadLine();
+                namePlayer1 = Console.ReadLine();
                 while (namePlayer1 == "")
                 {
                     Console.WriteLine("wrong name!");
@@ -31,7 +36,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
                 }
                 Console.WriteLine("player2  enter a name ");
-                string namePlayer2 = Console.ReadLine();
+                 namePlayer2 = Console.ReadLine();
                 while (namePlayer2 == "")
                 {
                     Console.WriteLine("wrong name!");
@@ -46,7 +51,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
                 do
                 {
-                    //  Console.Clear();//מחיקת המסך
+                    Console.Clear();//מחיקת המסך
                     Console.WriteLine($"player {namePlayer1} : {signPlayer1} and player 2 {namePlayer2} {signPlayer2}");
                     if (player % 2 == 0)
                     {
@@ -70,13 +75,13 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     {
                         Console.WriteLine($"the row {choice + 1} is already marked!");
                     }
-
-
-
+                    flag = CheckWin();
                 }
-                while (true);
-
-
+                while (flag != 1 && flag!= -1);
+                Console.Clear();
+                DrawBoard();
+                ShowPlayerWin();
+                Console.ReadLine();
 
 
             }
@@ -87,6 +92,27 @@ namespace MyApp // Note: actual namespace depends on the project name.
             }
         }
 
+        static void ShowPlayerWin()
+        {
+            //Console.Clear();
+            if(flag == 1)
+            {
+                if (player % 2 == 0)
+                    Console.WriteLine($"player {namePlayer1} won");
+                else
+                {
+                    Console.WriteLine($"player {namePlayer2} won");
+                }
+            }
+            //else if()
+            //{
+
+            //}
+            else
+            {
+                Console.WriteLine("tie game");
+            }
+        }
         static int CheckWin()
         {
             if ( 
@@ -121,7 +147,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     && board[7] != '8' 
                     && board[8] != '9')
             {
-                return -1;
+                return -1;//תיקו
             }
             return 0;
 
