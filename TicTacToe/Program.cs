@@ -7,10 +7,11 @@ namespace MyApp // Note: actual namespace depends on the project name.
         static char[] board = { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         static void Main(string[] args)
         {
-            
-			try
-			{   int player = 1;
-                
+
+            try
+            {
+                int player = 1;
+
                 string signPlayer2 = "";
                 Console.WriteLine("enter a name");
                 string namePlayer1 = Console.ReadLine();
@@ -22,12 +23,12 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 }
                 Console.WriteLine("enter a sign");
                 string signPlayer1 = Console.ReadLine().ToUpper();
-                while(signPlayer1 !="X" && signPlayer1 !="O")
+                while (signPlayer1 != "X" && signPlayer1 != "O")
                 {
                     Console.WriteLine("wrong sign!");
                     Console.WriteLine("enter a sign!");
                     signPlayer1 = Console.ReadLine().ToUpper();
-                        
+
                 }
                 Console.WriteLine("player2  enter a name ");
                 string namePlayer2 = Console.ReadLine();
@@ -45,9 +46,9 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
                 do
                 {
-                  //  Console.Clear();//מחיקת המסך
+                    //  Console.Clear();//מחיקת המסך
                     Console.WriteLine($"player {namePlayer1} : {signPlayer1} and player 2 {namePlayer2} {signPlayer2}");
-                    if(player % 2 == 0)
+                    if (player % 2 == 0)
                     {
                         Console.WriteLine($"name {namePlayer2} turn");
                     }
@@ -55,16 +56,22 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         Console.WriteLine($"name {namePlayer1} turn");
                     DrawBoard();
                     int.TryParse(Console.ReadLine(), out int choice);
-                    while(choice < 1 || choice > 9)
+                    while (choice < 1 || choice > 9)
                     {
                         Console.WriteLine("error number!enter a number between 1-9");
                         int.TryParse(Console.ReadLine(), out choice);
                     }
                     choice -= 1;
-                    if (board[choice] !='X' && board[choice] !='O')
+                    if (board[choice] != 'X' && board[choice] != 'O')
                     {
-                        DrawSign(ref player,choice,signPlayer1,signPlayer2);
+                        DrawSign(ref player, choice, signPlayer1, signPlayer2);
                     }
+                    else
+                    {
+                        Console.WriteLine($"the row {choice + 1} is already marked!");
+                    }
+
+
 
                 }
                 while (true);
@@ -73,13 +80,42 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
 
             }
-			catch (Exception ex)
-			{
+            catch (Exception ex)
+            {
 
-				Console.WriteLine(ex.ToString());
-			}
+                Console.WriteLine(ex.ToString());
+            }
         }
-        static void DrawSign(ref int player,int choice,string signPlayer1,string signPlayer2)
+
+        static int CheckWin()
+        {
+            if ( board[0] == board[1] &&
+                 board[1] == board[2] ||
+                 board[3] == board[4] &&
+                 board[4] == board[5] ||
+                 board[6] == board[7] &&
+                 board[7] == board[8] ||
+                 board[0] == board[3] &&
+                 board[3] == board[6] ||
+                 board[1] == board[4] &&
+                 board[4] == board[7] ||
+                 board[2] == board[5] &&
+                 board[5] == board[8] ||
+                 board[0] == board[4] &&
+                 board[4] == board[8] ||
+                 board[2] == board[4] &&
+                 board[4] == board[6])
+            {
+                return 1;
+            }
+            else if (board[0] != '1' && board[1] != '2' && board[2] != '3' && board[3] != '4' && board[4] != '5' && board[5] != '6' && board[6] != '7' && board[7] != '8' && board[8] != '9')
+            {
+                return -1;
+            }
+            return 0;
+
+        }
+        static void DrawSign(ref int player, int choice, string signPlayer1, string signPlayer2)
         {
             if (player % 2 == 0)
                 board[choice] = Convert.ToChar(signPlayer2);
@@ -89,7 +125,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
         }
         static void DrawBoard()
         {
-           
+
             Console.WriteLine("     |     |      ");
             Console.WriteLine($"  {board[0]}  |  {board[1]}  |  {board[2]}");
             Console.WriteLine("_____|_____|_____ ");
