@@ -61,7 +61,10 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         int.TryParse(Console.ReadLine(), out choice);
                     }
                     choice -= 1;
-                    
+                    if (board[choice] !='X' && board[choice] !='O')
+                    {
+                        DrawSign(ref player,choice,signPlayer1,signPlayer2);
+                    }
 
                 }
                 while (true);
@@ -76,7 +79,14 @@ namespace MyApp // Note: actual namespace depends on the project name.
 				Console.WriteLine(ex.ToString());
 			}
         }
-
+        static void DrawSign(ref int player,int choice,string signPlayer1,string signPlayer2)
+        {
+            if (player % 2 == 0)
+                board[choice] = Convert.ToChar(signPlayer2);
+            else
+                board[choice] = Convert.ToChar(signPlayer1);
+            player++;
+        }
         static void DrawBoard()
         {
            
